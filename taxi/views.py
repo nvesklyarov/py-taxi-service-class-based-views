@@ -5,7 +5,6 @@ from .models import Driver, Car, Manufacturer
 
 
 def index(request):
-    """View function for the home page of the site."""
     return render(request, "taxi/index.html")
 
 
@@ -20,12 +19,13 @@ class ManufacturerListView(generic.ListView):
 class CarListView(generic.ListView):
     model = Car
     paginate_by = 5
-    queryset = Car.objects.select_related("manufacturer")
+    queryset = Car.objects.select_related("manufacturer").order_by("model")
 
 
 class DriverListView(generic.ListView):
     model = Driver
     paginate_by = 5
+    queryset = Driver.objects.order_by("username")
 
 
 class CarDetailView(generic.DetailView):
